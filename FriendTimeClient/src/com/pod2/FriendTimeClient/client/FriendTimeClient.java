@@ -22,22 +22,20 @@ public class FriendTimeClient implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
-		// TODO: generate navigation bar and footer here
-		RootPanel navbar = RootPanel.get("ezbook-navbar");
-		navbar.add(new HTML("<h2>Navbar goes here</h2>"));
-		RootPanel footer = RootPanel.get("ezbook-footer");
-		footer.add(new HTML("<h2>Footer goes here</h2>"));
-		
+		// TODO: generate navigation bar here
+		RootPanel navbar = RootPanel.get("navigation");
+		navbar.add(new HTML("<h2>Navigation HTML Code Here</h2>"));
+			
 		Calendar calendar = new Calendar();
 		calendar.setDate(new Date()); // calendar date, not required
 		calendar.setDays(7); // number of days displayed at a time, not required
-		calendar.setWidth("500px");
+		calendar.setWidth("600px");
 		calendar.setHeight("400px");
 
 		mainPanel.add(calendar);
 
 		// Associate the Main panel with the HTML host page.
-		RootPanel.get("stockList").add(mainPanel);
+		RootPanel.get("navigation").add(mainPanel);
 
 	}
 
