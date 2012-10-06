@@ -23,8 +23,8 @@ public class FriendTimeClient implements EntryPoint {
 	public void onModuleLoad() {
 
 		// TODO: generate navigation bar here
-		RootPanel navbar = RootPanel.get("navigation");
-		navbar.add(new HTML("<h2>Navigation HTML Code Here</h2>"));
+		RootPanel rootPanel = RootPanel.get("rootPanel");
+		rootPanel.add(new HTML("<h2>This is the Root Panel</h2>"));
 			
 		Calendar calendar = new Calendar();
 		calendar.setDate(new Date()); // calendar date, not required
@@ -35,7 +35,7 @@ public class FriendTimeClient implements EntryPoint {
 		mainPanel.add(calendar);
 
 		// Associate the Main panel with the HTML host page.
-		RootPanel.get("navigation").add(mainPanel);
+		RootPanel.get("rootPanel").add(mainPanel);
 
 	}
 
