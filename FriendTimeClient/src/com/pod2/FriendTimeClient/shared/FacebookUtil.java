@@ -2,19 +2,19 @@ package com.pod2.FriendTimeClient.shared;
 
 public class FacebookUtil {
 	
-	 	private static final String API_KEY = "xxx";
-	    private static final String SECRET = "xxx";
-	    private static final String APPLICATION_ID = "xxx";
+	 	private static final String API_KEY = "157419021064776";
+	    private static final String SECRET = "20375366e2ef74a7ccbc3194d220e126";
+	    private static final String APPLICATION_ID = "157419021064776";
 
 	    private static final String FB_GRAPH_URL = "https://graph.facebook.com/";
 	    private static final String FB_OAUTH_URL = FB_GRAPH_URL + "oauth/";
 	    private static final String FB_FRIENDS_URL = FB_GRAPH_URL + "me/friends?";
-
-	    // private static final String REDIRECT_URL =
-	    // "http://apps.facebook.com/famousity/";
+	    
+	    /* Redirects to the following page after Login In*/
+	    private static final String REDIRECT_URL = "http://friendtimeclient.appspot.com/";
 
 	    // localhost is for testing
-	    private static final String REDIRECT_URL = "http://localhost:8888/";
+	    //private static final String REDIRECT_URL = "http://localhost:8888/";
 
 	    public static String getApplicationId() {
 	        return APPLICATION_ID;
@@ -28,11 +28,11 @@ public class FacebookUtil {
 	        return SECRET;
 	    }
 
-	    public static String getAuthorizeUrl() {
+	    public static String getAuthorizedUrl() {
 	        final StringBuilder sb = new StringBuilder(FB_OAUTH_URL);
 	        sb.append("authorize?client_id=").append(APPLICATION_ID);
 	        sb.append("&display=page&redirect_uri=").append(REDIRECT_URL);
-	        sb.append("&scope=user_status,publish_stream,offline_access,email");
+	        sb.append("&scope=user_status,publish_stream");
 	        return sb.toString();
 	    }
 
@@ -43,7 +43,7 @@ public class FacebookUtil {
 	        sb.append("&client_secret=").append(SECRET);
 	        sb.append("&code=").append(authCode);
 	        System.out.println(sb.toString());
-	        System.out.println(getAuthorizeUrl());
+	        System.out.println(getAuthorizedUrl());
 	        return sb.toString();
 	    }
 

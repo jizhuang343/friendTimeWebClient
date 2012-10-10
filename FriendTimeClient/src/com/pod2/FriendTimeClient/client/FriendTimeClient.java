@@ -7,10 +7,29 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+//import com.extjs.gxt.ui.client.event.Listener;
+//import com.extjs.gxt.ui.client.event.MessageBoxEvent;
+//import com.extjs.gxt.ui.client.widget.Header;
+//import com.extjs.gxt.ui.client.widget.MessageBox;
+//import com.extjs.gxt.ui.client.widget.Text;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.Window.Location;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.pod2.FriendTimeClient.shared.FacebookUtil;
 
 public class FriendTimeClient implements EntryPoint {
 
 	private VerticalPanel mainPanel = new VerticalPanel();
+	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+
 
 	/**
 	 * Entry point method. 
@@ -23,20 +42,58 @@ public class FriendTimeClient implements EntryPoint {
 	public void onModuleLoad() {
 
 		// TODO: generate navigation bar here
-		RootPanel navbar = RootPanel.get("navigation");
-		navbar.add(new HTML("<h2>Navigation HTML Code Here</h2>"));
-			
-		Calendar calendar = new Calendar();
-		calendar.setDate(new Date()); // calendar date, not required
-		calendar.setDays(7); // number of days displayed at a time, not required
-		calendar.setWidth("600px");
-		calendar.setHeight("400px");
+		RootPanel rootPanel = RootPanel.get("rootPanel");
+		rootPanel.add(new HTML("<h2>This is the Root Panel</h2>"));
 
-		mainPanel.add(calendar);
+		/*Location provides access to the browser's location's object. 
+		The location object contains information about the current URL 
+		and methods to manipulate it. 
+		*/
+		
+        final String authToken = Location.getParameter("code");
+        //sb.append("&code=").append(authCode);
 
-		// Associate the Main panel with the HTML host page.
-		RootPanel.get("navigation").add(mainPanel);
+        if (authToken == null || "".equals(authToken)) {
+            redirect(FacebookUtil.getAuthorizedUrl());
+        } else {
+            greetingService.login(authToken, new AsyncCallback<String>() {
+                public void onFailure(final Throwable caught) {
+                    handleError(caught);
+                }
 
+                public void onSuccess(final String authToken) {
+                	Label loggedInLabel = new Label();
+                	loggedInLabel.setText("You have successfully logged in! authToken is" +authToken);
+
+                	mainPanel.add(new HTML("<b>Logged In!</b>"));
+                	
+                   // rankFriends(authToken);
+                	Calendar calendar = new Calendar();
+            		calendar.setDate(new Date()); // calendar date, not required
+            		calendar.setDays(7); // number of days displayed at a time, not required
+            		calendar.setWidth("600px");
+            		calendar.setHeight("400px");
+
+            		mainPanel.add(calendar);
+
+            		// Associate the Main panel with the HTML host page.
+            		RootPanel.get("rootPanel").add(mainPanel);
+                }
+            });
+        }
 	}
+	
+	private void handleError(final Throwable caught) {
+        Window.alert(caught.getMessage());
+    }
 
+//    private String getProfilePictureUrl(final FbFriend friend) {
+//        return "http://graph.facebook.com/" + friend.getId() + "/picture";
+//    }
+
+    // redirect the browser to the given url
+    public static native void redirect(String url)/*-{
+		$wnd.location = url;
+    }-*/;
+	
 }
