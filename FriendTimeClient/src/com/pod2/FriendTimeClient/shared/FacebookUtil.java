@@ -14,7 +14,7 @@ public class FacebookUtil {
 	    private static final String REDIRECT_URL = "http://friendtimeclient.appspot.com/";
 
 	    // localhost is for testing
-	    //private static final String REDIRECT_URL = "http://localhost:8888/";
+	   // private static final String REDIRECT_URL = "http://localhost:8888/";
 
 	    public static String getApplicationId() {
 	        return APPLICATION_ID;
@@ -31,8 +31,9 @@ public class FacebookUtil {
 	    public static String getAuthorizedUrl() {
 	        final StringBuilder sb = new StringBuilder(FB_OAUTH_URL);
 	        sb.append("authorize?client_id=").append(APPLICATION_ID);
-	        sb.append("&display=page&redirect_uri=").append(REDIRECT_URL);
 	        sb.append("&scope=user_status,publish_stream");
+	        sb.append("&display=page&redirect_uri=").append(REDIRECT_URL);
+	        
 	        return sb.toString();
 	    }
 
