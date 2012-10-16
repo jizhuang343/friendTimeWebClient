@@ -1,2 +1,3 @@
 # Module friendtimeclient
 # RPC service class, partial path of RPC policy file
+com.pod2.FriendTimeClient.client.GreetingService, 553C4142CE7B8B7E05058D549ABDE6AA.gwt.rpc

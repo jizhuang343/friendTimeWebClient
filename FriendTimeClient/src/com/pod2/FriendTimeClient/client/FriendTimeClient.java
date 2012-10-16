@@ -123,9 +123,13 @@ public class FriendTimeClient implements EntryPoint {
 	private void grabFriends(final String authToken) {
 
         final RootPanel rootPanel = RootPanel.get();
-        greetingService.findFriendsThatUseApp(authToken, new AsyncCallback<List<FbFriend>>() {
+       // greetingService.findFriendsThatUseApp(authToken, new AsyncCallback<List<FbFriend>>() {
+        	
+       greetingService.findFriendsThatUseApp(authToken, new AsyncCallback<List<FbFriend>>() {
+
             public void onFailure(final Throwable caught) {
         		rootPanel.add(new HTML("<h2><center>FAILED!</center></h2>"));
+        		handleError(caught);
                 Window.alert(caught.getMessage());
             }
 
@@ -134,7 +138,11 @@ public class FriendTimeClient implements EntryPoint {
                // final Header header = new Header();
                // header.setText("How famous are your friends");
                // rootPanel.add(header);
-
+            	int friendListSize = friends.size();
+            	
+            	String lah = friendListSize+"";
+            	final Label friendsize = new Label(lah);
+            	rootPanel.add(friendsize);
          
             	for (final FbFriend friend : friends) {
                     final Panel friendPanel = new HorizontalPanel();

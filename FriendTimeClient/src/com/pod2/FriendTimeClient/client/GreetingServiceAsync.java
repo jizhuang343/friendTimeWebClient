@@ -13,4 +13,8 @@ public interface GreetingServiceAsync {
 
 	public void findFriendsThatUseApp(String authToken,
 			AsyncCallback<List<FbFriend>> asyncCallback);
+	 
+	public void findFriends(String authToken,
+			AsyncCallback<List<FbFriend>> asyncCallback);
+	
 }
