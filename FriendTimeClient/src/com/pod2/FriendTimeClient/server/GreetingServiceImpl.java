@@ -3,6 +3,7 @@ package com.pod2.FriendTimeClient.server;
 import java.util.List;
 
 import com.google.appengine.repackaged.com.google.gson.Gson;
+//import com.google.appengine.repackaged.com.google.gson.Gson;
 //import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.pod2.FriendTimeClient.client.GreetingService;
@@ -28,14 +29,21 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements Greetin
         return fbFriends.getData();
     }
     
-    public List<FbFriend> findFriendsThatUseApp(final String authToken) {
-    	
-    	//List<FbFriend> listOfFriends= new LinkedList<FbFriend>();
-		final String friendsUrl = FacebookUtil.getFriendsThatUseApp(encodeUrl(authToken));
-		final String json = Util.fetchURL(friendsUrl);
+    public List<FbFriend> findFriendsThatUseApp(final String authToken) {    	    	
+		final String friendsUrl = FacebookUtil.getFriendsThatUseApp(encodeUrl(authToken));		
+		final String json = Util.fetchURL(friendsUrl);		
 		final FBFriends fbFriends = new Gson().fromJson(json, FBFriends.class);
 		return fbFriends.getData();
     }
+    
+    public String debug(final String authToken) {   
+    	final String friendsUrl = FacebookUtil.getFriendsThatUseApp(authToken);		
+		final String json = Util.fetchURL(friendsUrl);
+		final String debugString = "friendsUrl bottom is: "+friendsUrl+" json is: "+json;		
+		//final FBFriends fbFriends = new Gson().fromJson(json, FBFriends.class);
+		return debugString;
+    }
+
 
     private static String encodeUrl(final String unencodedToken) {
         final String[] parts = unencodedToken.split("=");

@@ -19,4 +19,7 @@ public interface GreetingService extends RemoteService {
 	public List<FbFriend> findFriendsThatUseApp(String authToken);
 	
 	public List<FbFriend> findFriends(String authToken);
+	
+    public String debug(String authToken);     	
+
 }

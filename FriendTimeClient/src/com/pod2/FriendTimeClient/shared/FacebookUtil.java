@@ -51,11 +51,14 @@ public class FacebookUtil {
 	    public static String getFriendsUrl(final String authToken) {
 	        return FB_FRIENDS_URL + authToken;
 	    }
-	    
-	    public static String getFriendsThatUseApp(final String authToken) {		    	
-	    	String appUsers = "https://api.facebook.com/method/friends.getAppUsers?access_token=";
-	    	appUsers.concat(authToken);
-	    	return appUsers;
+	     
+	    public static String getFriendsThatUseApp(final String authToken) {	
+	    	String temp = "https://api.facebook.com/method/friends.getAppUsers?access_token=";
+	    	temp.concat(authToken);
+	    	return temp;
+	    	//final StringBuilder sb = new StringBuilder("https://api.facebook.com/method/friends.getAppUsers?access_token=");
+	    	//sb.append(authToken);
+	    	//return sb.toString();
 	    }
 	    
 }
